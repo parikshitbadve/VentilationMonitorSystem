@@ -2,11 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using VentilationMonitorSystem.Data;
+using VentilationMonitorSystem.Models;
+using VentilationMonitorSystem.Repository;
+using VentilationMonitorSystem.Repository.IRepository;
+using VentilationMonitorSystem.VentilationMapper;
 
 namespace VentilationMonitorSystem
 {
@@ -23,6 +30,15 @@ namespace VentilationMonitorSystem
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<ApplicationDbContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //Add scope of project Repositories
+            services.AddScoped<IVentilationSystemRepository, VentilationSystemRepository>();
+            services.AddScoped<IUnitsRepository, UnitsRepository>();
+
+            //Add scope of AutoMapper
+            services.AddAutoMapper(typeof(VentilationMapping));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
