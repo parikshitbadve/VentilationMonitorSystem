@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -17,27 +18,43 @@ namespace VentilationMonitorSystem.Repository
         {
             _db = db;
         }
-        public bool CreateVentilationSystem(VentilationMonitorDto ventilationMonitor)
+        public bool CreateVentilationSystem(VentilationMonitorModel ventilationMonitor)
         {
+            ventilationMonitor.RecordId = new Guid();
+            ventilationMonitor.CreatedDate = DateTime.Now;
+            ventilationMonitor.IsActive = true;
             _db.VentilationDetail.Add(ventilationMonitor);
             return Save();
         }
 
-        public bool DeleteVentilationSystem(VentilationMonitorDto ventilationMonitor)
+        public bool DeleteVentilationSystem(System.Guid recordId)
         {
-            VentilationMonitorDto record =_db.VentilationDetail.Where(x=>x.RecordId==ventilationMonitor.RecordId).FirstOrDefault();
+            VentilationMonitorModel record =_db.VentilationDetail.Where(x=>x.RecordId== recordId).FirstOrDefault();
             record.IsActive = false;
             return Save();
         }
 
-        public VentilationMonitorDto GetVentilationSystem(Guid recordId)
+        public ICollection<DepartmentModel> GetDepartments()
         {
+            return _db.Department.ToList();
+        }
+
+        public VentilationMonitorModel GetVentilationSystem(Guid recordId)
+        {
+            var ventilationData = _db.VentilationDetail.Where(x=>x.RecordId==recordId).Include(r => r.Units).FirstOrDefault();
             return _db.VentilationDetail.FirstOrDefault(x => x.RecordId == recordId && x.IsActive==true);
         }
 
-        public ICollection<VentilationMonitorDto> GetVentilationSystems()
+        public ICollection<VentilationMonitorModel> GetVentilationSystems()
         {
-            return _db.VentilationDetail.Where(x => x.IsActive==true).ToList();
+            List<VentilationMonitorModel> model = new List<VentilationMonitorModel>();
+            var ventilationData = _db.VentilationDetail.Where(x => x.IsActive == true).Include(r => r.Units);
+            foreach (VentilationMonitorModel item in ventilationData)
+            {
+                item.Unit = item.Units.UnitName;
+                 model.Add(item);
+            }
+            return model;
         }
 
         public bool Save()
@@ -45,7 +62,7 @@ namespace VentilationMonitorSystem.Repository
             return _db.SaveChanges() >= 0 ? true : false;
         }
 
-        public bool UpdateVentilationSystem(VentilationMonitorDto ventilationMonitor)
+        public bool UpdateVentilationSystem(VentilationMonitorModel ventilationMonitor)
         {
             _db.VentilationDetail.Update(ventilationMonitor);
             return Save();

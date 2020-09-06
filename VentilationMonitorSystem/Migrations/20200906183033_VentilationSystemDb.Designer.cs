@@ -10,7 +10,7 @@ using VentilationMonitorSystem.Data;
 namespace VentilationMonitorSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200905101229_VentilationSystemDb")]
+    [Migration("20200906183033_VentilationSystemDb")]
     partial class VentilationSystemDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,9 @@ namespace VentilationMonitorSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UnitName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -60,6 +63,12 @@ namespace VentilationMonitorSystem.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LongWall")
                         .HasColumnType("int");
 
@@ -69,15 +78,29 @@ namespace VentilationMonitorSystem.Migrations
                     b.Property<int>("MG14")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Taligate")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("unitId")
+                    b.Property<Guid>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("RecordId");
 
+                    b.HasIndex("UnitId");
+
                     b.ToTable("VentilationDetail");
+                });
+
+            modelBuilder.Entity("VentilationMonitorSystem.Models.VentilationMonitorModel", b =>
+                {
+                    b.HasOne("VentilationMonitorSystem.Models.UnitModel", "Units")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

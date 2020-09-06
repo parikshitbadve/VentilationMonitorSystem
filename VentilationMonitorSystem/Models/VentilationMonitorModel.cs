@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +11,6 @@ namespace VentilationMonitorSystem.Models
     {
         [Key]
         public System.Guid RecordId { get; set; }
-
-        [Required]
-        public System.Guid unitId { get; set; }
 
         [Required]
         public int LongWall { get; set; }
@@ -35,5 +33,14 @@ namespace VentilationMonitorSystem.Models
         [Required]
         public bool IsActive { get; set; }
 
+       [Required]
+        public System.Guid UnitId { get; set; }
+
+        [NotMapped]
+        public string Unit { get; set; }
+
+        [ForeignKey("UnitId")]
+
+        public UnitModel Units { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace VentilationMonitorSystem.Models
         public System.Guid RecordId { get; set; }
 
         [Required]
-        public System.Guid unitId { get; set; }
+        public string Unit { get; set; }
 
         [Required]
         public int LongWall { get; set; }
@@ -34,6 +34,9 @@ namespace VentilationMonitorSystem.Models
 
         [Required]
         public bool IsActive { get; set; }
+
+        [Required]
+        public System.Guid unitId { get; set; }
 
     }
 }

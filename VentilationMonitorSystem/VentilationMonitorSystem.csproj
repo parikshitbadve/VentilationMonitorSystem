@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200905175239_VentilationSystemDb.cs" />
+    <Compile Remove="Data\Migrations\20200905175239_VentilationSystemDb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200905183018_VentilationMonitorDb.cs" />
+    <Compile Remove="Data\Migrations\20200905183018_VentilationMonitorDb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200906175037_VentilationSystemDb.cs" />
+    <Compile Remove="Data\Migrations\20200906175037_VentilationSystemDb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200906175436_VentilationSystemDb.cs" />
+    <Compile Remove="Data\Migrations\20200906175436_VentilationSystemDb.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200906175726_VentilationSystemDb.cs" />
+    <Compile Remove="Data\Migrations\20200906175726_VentilationSystemDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
@@ -13,6 +26,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -8,12 +8,13 @@ namespace VentilationMonitorSystem.Repository.IRepository
 {
     public interface IVentilationSystemRepository
     {
-        ICollection<VentilationMonitorDto> GetVentilationSystems();
-        VentilationMonitorDto GetVentilationSystem(System.Guid recordId);
+        ICollection<VentilationMonitorModel> GetVentilationSystems();
+        VentilationMonitorModel GetVentilationSystem(System.Guid recordId);
         bool VentilationSystemExists(System.Guid recordId);
-        bool CreateVentilationSystem(VentilationMonitorDto ventilationMonitor);
-        bool UpdateVentilationSystem(VentilationMonitorDto ventilationMonitor);
-        bool DeleteVentilationSystem(VentilationMonitorDto ventilationMonitor);
+        bool CreateVentilationSystem(VentilationMonitorModel ventilationMonitor);
+        bool UpdateVentilationSystem(VentilationMonitorModel ventilationMonitor);
+        bool DeleteVentilationSystem(System.Guid recordId);
+        ICollection<DepartmentModel> GetDepartments();
         bool Save();
     }
 }

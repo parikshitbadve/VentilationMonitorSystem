@@ -15,9 +15,19 @@ namespace VentilationMonitorSystem.Repository
         {
             _db = db;
         }
-        public bool CreateUnit(UnitModel ventilationMonitor)
+        public UnitModel CreateUnit(string unitName)
         {
-            throw new NotImplementedException();
+            UnitModel model = new UnitModel()
+            {
+                UnitId = new Guid(),
+                UnitName = unitName,
+                IsActive = true
+
+            };
+            _db.units.Add(model);
+            Save();
+
+            return model;
         }
 
         public bool DeleteUnit(UnitModel ventilationMonitor)
@@ -37,12 +47,13 @@ namespace VentilationMonitorSystem.Repository
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            return _db.SaveChanges() >= 0 ? true : false;
         }
 
-        public bool unitExists(Guid recordId)
+        public bool unitExists(string unitName)
         {
-            throw new NotImplementedException();
+            bool value = _db.units.Any(x => x.UnitName == unitName && x.IsActive == true);
+            return value;
         }
 
         public bool UpdateUnit(UnitModel ventilationMonitor)

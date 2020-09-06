@@ -14,9 +14,9 @@ namespace VentilationMonitorSystem.Data
 
         }
 
-        public DbSet<DepartmentDto> Department { get; set; }
+        public DbSet<DepartmentModel> Department { get; set; }
 
-        public DbSet<VentilationMonitorDto> VentilationDetail { get; set; }
+        public DbSet<VentilationMonitorModel> VentilationDetail { get; set; }
 
         public DbSet<UnitModel> units { get; set; }
     }

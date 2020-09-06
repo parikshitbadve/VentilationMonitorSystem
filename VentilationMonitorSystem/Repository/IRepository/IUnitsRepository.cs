@@ -10,10 +10,10 @@ namespace VentilationMonitorSystem.Repository.IRepository
     {
         ICollection<UnitModel> GetUnits();
         UnitModel GetUnit(System.Guid recordId);
-        bool unitExists(System.Guid recordId);
-        bool CreateUnit(UnitModel ventilationMonitor);
-        bool UpdateUnit(UnitModel ventilationMonitor);
-        bool DeleteUnit(UnitModel ventilationMonitor);
+        bool unitExists(string unitName);
+        UnitModel CreateUnit(string unitName);
+        bool UpdateUnit(UnitModel unit);
+        bool DeleteUnit(UnitModel unit);
         bool Save();
     }
 }
