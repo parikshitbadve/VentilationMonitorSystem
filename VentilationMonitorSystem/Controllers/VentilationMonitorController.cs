@@ -54,7 +54,10 @@ namespace VentilationMonitorSystem.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(ex.ToString());
+                // TODO: 
+                // Log the error in sql tabel
+                //
+                return Json(new { success = false, message = "Something went wrong.Please try again later!" });
             }
 
         }
@@ -95,7 +98,10 @@ namespace VentilationMonitorSystem.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(ex.ToString());
+                // TODO: 
+                // Log the error in sql tabel
+                //
+                return Json(new { success = false, message = "Something went wrong.Please try again later!" });
             }
         }
 
@@ -121,7 +127,10 @@ namespace VentilationMonitorSystem.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(ex.ToString());
+                // TODO: 
+                // Log the error in sql tabel
+                //
+                return Json(new { success = false, message = "Something went wrong.Please try again later!" });
             }
 
         }

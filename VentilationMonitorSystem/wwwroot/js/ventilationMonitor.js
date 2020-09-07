@@ -160,9 +160,10 @@ function AddNewRecord() {
 };
 
 function AddRecord(obj) {
-    if ($('#rowunit').val() == '')
+    if ($('#rowunit').val() == '') {
         alert('Unit filed is mandetory!');
-    return;
+        return;
+    };
     var data = { "Unit": $('#rowunit').val(), "LongWall": $('#rowlongwall').val(), "Taligate": $('#rowtailgate').val(), "MG13": $('#rowMaingate13').val(), "MG14": $('#rowmaingate14').val() };
     $.ajax({
         type: 'POST',
